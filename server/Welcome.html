@@ -66,17 +66,17 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: #00a372;
+            background-color: {{ COLOR }};
             margin-left: 20px;
         }
-        .green-light::after {
+        .green-light::after{{ ERROR }} {
             content: '';
             display: block;
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: #00a372;
-            box-shadow: 0 0 10px rgba(0, 163, 114, 0.5);
+            background-color: {{ COLOR }};
+            box-shadow: 0 0 10px {{ COLOR }}7F;
             animation: light 1s infinite;
         }
     </style>
@@ -86,13 +86,13 @@
         <div style="display: flex; gap: 30px; align-items: center;">
             <div class="green-light"></div>
             <div>
-                <h1>Expo server is ready !</h1>
-                <h2>The server is running and ready to serve your app.</h2>
+                <h1>{{ TITLE }}</h1>
+                <h2>{{ SUBTITLE }}</h2>
             </div>
         </div>
         <hr>
-        <p>Download ExpoGo from the App Store or Google Play, and enter the following URL.</p>
-        <code>exp://{{ HOST }}/:id</code>
+        <p>{{ MESSAGE }}</p>
+        <code>{{ CODE }}</code>
     </div>
 </body>
 </html>

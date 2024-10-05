@@ -1,21 +1,21 @@
 require("./environnement");
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 const router = express.Router();
 const generateRawGithubUrl =  require('./github/generate_raw_github_url');
 const GenerateManifest = require("./expo/GenerateManifest");
 const GenerateErrorPage = require("./server/GenerateErrorPage");
+const GenerateWelcomePage = require("./server/GenerateWelcomePage");
+const IsServerReady = require("./server/IsServerReady");
 
 let ip_to_id = [];
 
-router.all('/', (req, res) => {
-    let welcome = fs.readFileSync(path.join(__dirname, '/server/Welcome.html'), 'utf8')
-        .replace("{{ HOST }}", req.hostname)
-    res.send(welcome);
-})
+router.all('/', (req, res) =>
+    res.send(GenerateWelcomePage(req.hostname))
+)
 
 router.get('/:id', async (req, res) => {
+    if (IsServerReady().length > 0)
+        return res.redirect("/");
     if (req.query.platform !== "ios" && req.query.platform !== "android")
         return res
             .status(400)
@@ -47,6 +47,8 @@ router.get('/:id', async (req, res) => {
     }
 })
 router.get('/:id/AppEntry.bundle', async (req, res) => {
+    if (IsServerReady().length > 0)
+        return res.redirect("/");
     if (req.query.platform !== "ios" && req.query.platform !== "android")
         return res
             .status(400)
@@ -68,6 +70,8 @@ router.get('/:id/AppEntry.bundle', async (req, res) => {
 })
 
 router.get('/*', async (req, res) => {
+    if (IsServerReady().length > 0)
+        return res.redirect("/");
     let id = ip_to_id[ip_to_id.findIndex(e => e.ip === req.ip)];
     if (id) {
         res.redirect(generateRawGithubUrl(id.id) + "assets/" + req.query.hash);
@@ -78,10 +82,8 @@ router.get('/*', async (req, res) => {
     }
 })
 
-router.all('*', (req, res) => {
-    res
-        .status(404)
-        .send(GenerateErrorPage("404 Not Found", "The requested URL was not found on this server."));
-});
+router.all('*', (req, res) =>
+    res.redirect("/")
+);
 
 module.exports = router;
