@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expo server is ready !</title>
+    <style>
+        @keyframes light {
+            from {
+                opacity: 0.5;
+                scale: 1;
+            }
+            to {
+                opacity: 0;
+                scale: 4;
+            }
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        body > div {
+            margin: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 700px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 16px;
+            margin: 3px 0 0;
+            font-weight: 500;
+            opacity: .6;
+        }
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+        p {
+            font-size: 16px;
+            font-weight: 500;
+            opacity: .6;
+        }
+        code {
+            display: block;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            font-size: 14px;
+            border: #0002 solid 1px;
+        }
+        .green-light {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #00a372;
+            margin-left: 20px;
+        }
+        .green-light::after {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #00a372;
+            box-shadow: 0 0 10px rgba(0, 163, 114, 0.5);
+            animation: light 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div style="display: flex; gap: 30px; align-items: center;">
+            <div class="green-light"></div>
+            <div>
+                <h1>Expo server is ready !</h1>
+                <h2>The server is running and ready to serve your app.</h2>
+            </div>
+        </div>
+        <hr>
+        <p>Download ExpoGo from the App Store or Google Play, and enter the following URL.</p>
+        <code>exp://{{ HOST }}/:id</code>
+    </div>
+</body>
+</html>
